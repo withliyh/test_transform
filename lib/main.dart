@@ -3,6 +3,13 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:test_transform/test_arcto_widget.dart';
+import 'package:test_transform/test_line_animation.dart';
+import 'package:test_transform/test_resize_image.dart';
+import 'package:test_transform/text_painter.dart';
+
+import 'test_counter_widget.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:test_transform/test_arcto_widget.dart';
 import 'package:test_transform/test_nested_scroll.dart';
@@ -17,6 +24,8 @@ import 'test_memoryprof.dart';
 import 'test_snowflake.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  debugRepaintRainbowEnabled = true;
   runApp(MaterialApp(
     builder: ((context, child) => TestTextAnim()),
   ));
