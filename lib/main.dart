@@ -1,19 +1,78 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:test_transform/test_arcto_widget.dart';
+import 'package:test_transform/test_nested_scroll.dart';
+import 'package:test_transform/test_text_anim.dart';
+import 'package:test_transform/test_videoplayer/test_shared_videoplayer_widget.dart';
+import 'package:test_transform/test_videoplayer/test_videoplayer_widget.dart';
 import 'package:test_transform/text_painter.dart';
+
+import 'safe_url.dart';
+import 'test_colorbox.dart';
+import 'test_memoryprof.dart';
+import 'test_snowflake.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: TestArcToWidget(),
+    builder: ((context, child) => TestTextAnim()),
   ));
-  Text("");
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Color color = Colors.red;
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(Duration(milliseconds: 16), (timer) {
+      setState(() {
+        color = Colors.red.withAlpha(timer.tick % 255);
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          primaryColor: Colors.yellow,
+          textButtonTheme: TextButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(Colors.yellow),
+              foregroundColor: MaterialStatePropertyAll(Colors.red),
+              textStyle: MaterialStatePropertyAll(
+                TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
+        child: Builder(builder: (context) {
+          return SizedBox.shrink(
+            child: TextButton(
+              onPressed: () {
+                Theme.of(context).primaryColor;
+              },
+              child: Text("TextButton"),
+            ),
+          );
+        }),
+      ),
+    );
+  }
+}
+
+class MyApp2 extends StatelessWidget {
+  const MyApp2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -322,4 +381,18 @@ class PresentImageWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+void a() {
+  Container(
+    color: Colors.blue,
+    child: Row(
+      children: [
+        Image.network(
+          '../1.png',
+        ),
+        Text('B'),
+      ],
+    ),
+  );
 }
