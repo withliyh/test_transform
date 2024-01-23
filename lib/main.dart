@@ -25,7 +25,7 @@ import 'test_snowflake.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  debugRepaintRainbowEnabled = true;
+  debugRepaintRainbowEnabled = false;
   runApp(MaterialApp(
     builder: ((context, child) => TestTextAnim()),
   ));
