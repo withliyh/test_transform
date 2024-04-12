@@ -27,6 +27,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   debugRepaintRainbowEnabled = false;
   runApp(MaterialApp(
+    showPerformanceOverlay: true,
     builder: ((context, child) => TestTextAnim()),
   ));
 }
